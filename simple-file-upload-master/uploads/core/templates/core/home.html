@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <ul>
+    <li>
+      <a href="{% url 'model_form_upload' %}">Submit Report</a>
+    </li>
+  </ul>
+
+
+  <p>Uploaded Reports:</p>
+
+<table>
+  <tr>
+    <th>Document</th>
+    <th>Description</th>
+    <th>Updated at</th>
+    <th>Check</th>
+    <th>Marks</th>
+  </tr>
+
+  {% for obj in documents %}
+  <tr>
+    <td><a href="{{ obj.document.url }}">{{ obj.document.name }}</a></td>
+    <td>{{obj.description}}</td>
+    <td><small>({{ obj.uploaded_at }})</small></td>
+    <td>No</td>
+     <td>0</td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+<!--<ul>-->
+    <!--{% for obj in documents %}-->
+      <!--<li>-->
+
+        <!--<a href="{{ obj.document.url }}">{{ obj.document.name }}</a>-->
+        <!--<small>(Uploaded at: {{ obj.uploaded_at }})</small>-->
+
+      <!--</li>-->
+    <!--{% endfor %}-->
+  <!--</ul>-->
+<!--{% endblock %}-->
