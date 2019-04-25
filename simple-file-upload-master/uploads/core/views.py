@@ -2,9 +2,16 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
-from uploads.core.models import Document, Teacher, Students
-from uploads.core.forms import DocumentForm
+from .models import Document, Teacher, Students
+from .forms import DocumentForm
 
+num = range(1,11)
+
+def student_view(request):
+    return render(request, 'core/student_view.html')
+
+def week_wise_view(request):
+    return render(request, 'core/week_wise_view.html', {'num' : num} )
 
 def home(request):
     documents = Document.objects.all()

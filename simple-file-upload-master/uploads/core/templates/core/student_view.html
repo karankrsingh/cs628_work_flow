@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<script>
+function myFunction(){
+    var name=localStorage.getItem("Value");
+    alert("Clicked is "+name);
+}
+</script>
+
+<body onload="myFunction()">
+
+{% endblock %}

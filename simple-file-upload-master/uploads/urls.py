@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^uploads/form/$', views.model_form_upload, name='model_form_upload'),
     url(r'^teacher/', views.for_teacher, name='for_teacher'),
     url(r'^admin/', admin.site.urls),
+    url(r'^week/', views.week_wise_view),
+    url(r'^student_view/', views.student_view, name='student_view'),
+
 ]
 
 if settings.DEBUG:
