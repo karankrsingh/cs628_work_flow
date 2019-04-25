@@ -22,33 +22,33 @@
 </table>
 
 
-<p><font color="green"><h2>Latest reports:</h2></font></p>
+<!--<p><font color="green"><h2>Latest reports:</h2></font></p>-->
 
-<table>
-    <tr>
-        <th>Student</th>
-        <th>Topic</th>
-        <th>Document</th>
-        <th>Description</th>
-        <th>Updated at</th>
-        <th>Check</th>
-        <th>Marks</th>
-    </tr>
+<!--<table>-->
+    <!--<tr>-->
+        <!--<th>Student</th>-->
+        <!--<th>Topic</th>-->
+        <!--<th>Document</th>-->
+        <!--<th>Description</th>-->
+        <!--<th>Updated at</th>-->
+        <!--<th>Check</th>-->
+        <!--<th>Marks</th>-->
+    <!--</tr>-->
 
-    {% for obj in documents %}
-    <tr>
-        <td>Dummy</td>
-        <td>Dummy</td>
-        <td><a href="{{ obj.document.url }}">{{ obj.document.name }}</a></td>
-        <td>{{obj.description}}</td>
-        <td>
-            <small>({{ obj.uploaded_at }})</small>
-        </td>
-        <td>No</td>
-        <td>0</td>
-    </tr>
-    {% endfor %}
-</table>
+    <!--{% for obj in documents %}-->
+    <!--<tr>-->
+        <!--<td>Dummy</td>-->
+        <!--<td>Dummy</td>-->
+        <!--<td><a href="{{ obj.document.url }}">{{ obj.document.name }}</a></td>-->
+        <!--<td>{{obj.description}}</td>-->
+        <!--<td>-->
+            <!--<small>({{ obj.uploaded_at }})</small>-->
+        <!--</td>-->
+        <!--<td>No</td>-->
+        <!--<td>0</td>-->
+    <!--</tr>-->
+    <!--{% endfor %}-->
+<!--</table>-->
 
 
 {% endblock %}

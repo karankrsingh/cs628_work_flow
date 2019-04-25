@@ -1,6 +1,6 @@
 from django import forms
 
-from uploads.core.models import Document
+from .models import Report
 
 
 class DocumentForm(forms.ModelForm):
