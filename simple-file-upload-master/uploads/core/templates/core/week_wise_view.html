@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<script>
+function getValue(a) {
+<!--  alert("Clicked is "+a);-->
+  localStorage.setItem("Value", a);
+}
+</script>
+
+<style>
+a {
+  font-family: "Times New Roman", Times, serif;
+  font-size:40px;
+  text-decoration:none;
+}
+
+</style>
+
+{% for value in num %}
+
+<!--    <a href="{% url 'home' %}">week-{{ value }}</a>-->
+<a href="{% url 'student_view' %}" onclick="getValue({{value}});" >week-{{ value }} </a>
+    </br>
+<hr>
+    </br>
+
+{% endfor %}
+
+{% endblock %}
