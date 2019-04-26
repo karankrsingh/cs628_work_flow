@@ -4,10 +4,16 @@
 
 
 <script>
+
+var tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() -1);
 function getValue(a) {
 <!--  alert("Clicked is "+a);-->
   localStorage.setItem("Value", a);
 }
+
+
+
 </script>
 
 <style>
@@ -22,8 +28,18 @@ a {
 {% for value in num %}
 
 <!--    <a href="{% url 'home' %}">week-{{ value }}</a>-->
-<a href="{% url 'student_view' %}" onclick="getValue({{value}});" >week-{{ value }} </a>
-    </br>
+<!--<a href="{% url 'student_view' %}" onclick="getValue({{value}});" >week-{{ value }} </a>-->
+<a href="{% url 'student_view' %}" onclick="getValue({{value}});" >
+    <script type="text/javascript">
+    document.write((tomorrow.getDate()+1)+"/"+(tomorrow.getMonth()+1)+"/"+tomorrow.getFullYear()+"  -  ");
+    tomorrow.setDate(tomorrow.getDate() + 7);
+    var dt = new Date(tomorrow);
+    document.write(tomorrow.getDate()+"/"+(tomorrow.getMonth()+1)+"/"+tomorrow.getFullYear());
+      </script>
+
+</a>
+
+</br>
 <hr>
     </br>
 

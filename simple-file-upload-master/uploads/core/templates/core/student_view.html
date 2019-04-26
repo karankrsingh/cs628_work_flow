@@ -5,7 +5,11 @@
 <script>
 function myFunction(){
     var name=localStorage.getItem("Value");
-    alert("Clicked is "+name);
+
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 7);
+    var dt = new Date(tomorrow);
+    alert("Clicked is "+name+"-"+dt.getDate()+"/"+(dt.getMonth()+1)+"/"+dt.getFullYear());
 }
 </script>
 
