@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-import composite_field
+# import composite_field
 
 # class Document(models.Model):
 #     description = models.CharField(max_length=255, blank=True)

@@ -47,3 +47,10 @@ def for_teacher(request):
 #     students = Students.objects.all()
 #     documents = Document.objects.all()
 #     return render(request, 'core/for_teacher.html', {'students': students,'documents': documents})
+num = range(1,11)
+def week_wise_view(request):
+    return render(request, 'core/week_wise_view.html',{'num' : num })
+
+def student_view(request):
+    return render(request, 'core/student_view.html')
+#
