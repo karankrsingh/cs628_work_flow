@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2><font color = "red">Week Number: </font> {{record.week_id}} </h2>
+
+<!--<h2><font color = "Green">Meeting Scheduled: </font></h2>-->
+<!--<p><h4> {{record.schedule_date}} </h4></p>-->
+
+<!--<h2><font color = "Blue">Work expected: </font></h2>-->
+<!--<p><h4> {{record.future_work}} </h4></p>-->
+
+
+<!--<h2><font color = "red">Work Done: </font></h2>-->
+<!--<p><h4> {{docrecord.description}} </h4></p>-->
+
+<!--<h2><font color = "Green"> Report Link: </font></h2>-->
+
+<!--<p><h4><a href="{{ docrecord.document.url }}">{{ docrecord.document.name }}</a> </h4></p>-->
+
+<!--<h2><font color = "orange"> Report Uploaded at: </font></h2>-->
+
+<!--<p><h4>{{ docrecord.uploaded_at }} </h4></p>-->
+
+<!--<h2><font color = "red"> Teacher's Comment: </font></h2>-->
+
+<!--<p><h4>{{ docrecord.teacher_comment }} </h4></p>-->
+
+<!--<h2><font color = "green"> Marks Given: </font></h2>-->
+
+<!--<p><h4>{{ docrecord.marks }} </h4></p>-->
+
+
+<table>
+    <tr>
+        <th>Meeting scheduled</th>
+        <th>Work Expected</th>
+        <th>Work Done</th>
+        <th>Report Link</th>
+        <th>Report Submitted at</th>
+
+        <th>Teacher Remark</th>
+        <th>Marks</th>
+    </tr>
+    <tr>
+         <td>{{record.schedule_date}}</td>
+        <td>{{record.future_work}}</td>
+        <td>{{docrecord.description}} </td>
+        <td><a href="{{ docrecord.document.url }}">{{ docrecord.document.name }}</a></td>
+        <td>{{ docrecord.uploaded_at }}</td>
+
+        <td>{{ docrecord.teacher_comment }}</td>
+        <td>{{ docrecord.marks }}</td>
+    </tr>
+</table>
+
+
+
+
+<!--<form method="post" enctype="multipart/form-data">-->
+    <!--{% csrf_token %}-->
+    <!--{{ form.as_p }}-->
+    <!--<button type="submit">Upload</button>-->
+  <!--</form>-->
+
+{% endblock %}
