@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static from staticfiles %}
+
+<script>
+function getImagePath(){
+    var img = new Image();
+    img.src = "/media/dragon.jpg";
+    if(img.height != 0)
+        return "/media/alt.jpg";
+    return "/media/test.jpg";
+
+  }
+  document.write('<img src="'+getImagePath()+'" width="500" height="333" >');
+</script>
+
+
+
+
+
+
+{% endblock %}

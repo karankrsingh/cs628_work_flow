@@ -2,6 +2,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from .core import views
 
@@ -15,6 +16,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^week/', views.week_wise_view),
     url(r'^student_view/', views.student_view, name='student_view'),
+    url(r'^graph/', views.student_graph_display),
 
 ]
 
