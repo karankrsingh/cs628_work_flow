@@ -82,4 +82,7 @@ def student_view(request):
     return render(request, 'core/student_view.html')
 
 def student_graph_display(request):
-    return render(request, 'core/student_graph_display.html')
+    week = [1, 2, 3, 4]
+    marks = [20, 30, 40, 50]
+    zippedlist = zip(week, marks)
+    return render(request, 'core/student_graph_display.html', {'zippedlist': zippedlist})

@@ -3,18 +3,65 @@
 {% block content %}
 {% load static from staticfiles %}
 
-<script>
-function getImagePath(){
-    var img = new Image();
-    img.src = "/media/dragon.jpg";
-    if(img.height != 0)
-        return "/media/alt.jpg";
-    return "/media/test.jpg";
 
-  }
-  document.write('<img src="'+getImagePath()+'" width="500" height="333" >');
+
+<html>
+<head>
+<script type="text/javascript">
+window.onload = function () {
+
+var chart1 = new CanvasJS.Chart("chartContainer1", {
+	theme: "light1", // "light2", "dark1", "dark2"
+	animationEnabled: false, // change to true
+	title:{
+		text: "Basic Column Chart"
+	},
+	data: [
+	{
+		// Change type to "bar", "area", "spline", "pie",etc.
+		type: "column",
+		dataPoints: [
+		{% for value1,value2 in zippedlist %}
+			{ label: {{value1}},  y: {{value2}}  },
+		{% endfor %}
+		]
+	}
+	]
+});
+chart1.render();
+
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+	theme: "light1", // "light2", "dark1", "dark2"
+	animationEnabled: false, // change to true
+	title:{
+		text: "Basic Pie Chart"
+	},
+	data: [
+	{
+		// Change type to "bar", "area", "spline", "pie",etc.
+		type: "pie",
+		dataPoints: [
+		{% for value1,value2 in zippedlist %}
+			{ label: {{value1}},  y: {{value2}}  },
+		{% endfor %}
+		]
+	}
+	]
+});
+chart2.render();
+
+}
 </script>
+</head>
+<body>
+<div id="chartContainer1" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
 
+<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
+
+</body>
+</html>
 
 
 
