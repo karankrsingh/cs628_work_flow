@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1><font color = "red">Student's Reports details</font></h1>
+<font color="green"><p><h2>List of meetings: </h2></p></font>
+
+<table>
+    <tr>
+        <th>Week No.</th>
+        <th>Scheduled Meeting</th>
+        <th>Work Expected</th>
+    </tr>
+
+    {% for obj in details_of_meet %}
+
+    <tr>
+        <td>{{obj.week_id }}</td>
+        <td>{{obj.schedule_date}}</td>
+        <td>{{obj.future_work}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

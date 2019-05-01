@@ -48,8 +48,9 @@ def for_teacher(request):
 
 def for_student_meeting(request):
     # take input roll_no and week number
-
-    prim = TeacherMeet.objects.get(week_id=7,meet_student_roll=10003)
+    # weekid=request.GET['number']
+    print(request.GET.values())
+    prim = TeacherMeet.objects.get(week_id=5,meet_student_roll=10001)
     # docrecord = get_object_or_404(Report, report_meet_id=prim.id)
     docrecord = Report.objects.filter(report_meet_id=prim.id)
 
@@ -69,6 +70,25 @@ def for_student_meeting(request):
             form = DocumentForm()
         return render(request, 'core/for_student_meeting.html', {'record': prim,'form':form })
 
+def teacher_student_view(request):
+    # input roll no of student
+    details_of_meet = TeacherMeet.objects.filter(meet_student_roll=10001)
+    # print(details_of_meet[1].week_id)
+    # newquery=Report.objects.none()
+    # print(newquery)
+    for obj in details_of_meet:
+        # print(obj.id)
+        temp=Report.objects.filter(report_meet_id=obj.id)
+        if(temp):
+            # print(temp)
+            for x in temp:
+                if(x.marks):
+                    print(x.marks)
+        # newquery=newquery|Report.objects.get(report_meet_id=temp)
+
+    return render(request,'core/teacher_student_view.html',{'details_of_meet':details_of_meet})
+    # details_of_report=Report.objects.filter()
+
 
 
 num = range(1, 11)
@@ -82,7 +102,17 @@ def student_view(request):
     return render(request, 'core/student_view.html')
 
 def student_graph_display(request):
-    week = [1, 2, 3, 4]
-    marks = [20, 30, 40, 50]
+
+    details_of_meet = TeacherMeet.objects.filter(meet_student_roll=10001)
+    marks=[]
+    week=[]
+    for obj in details_of_meet:
+        week.append(obj.week_id)
+        temp = Report.objects.filter(report_meet_id=obj.id)
+        if (temp):
+            print(temp)
+            for x in temp:
+                if(x.marks):
+                    marks.append(x.marks)
     zippedlist = zip(week, marks)
     return render(request, 'core/student_graph_display.html', {'zippedlist': zippedlist})

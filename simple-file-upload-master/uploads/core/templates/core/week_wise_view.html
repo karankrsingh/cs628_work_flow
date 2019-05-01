@@ -29,7 +29,11 @@ a {
 
 <!--    <a href="{% url 'home' %}">week-{{ value }}</a>-->
 <!--<a href="{% url 'student_view' %}" onclick="getValue({{value}});" >week-{{ value }} </a>-->
-<a href="{% url 'student_view' %}" onclick="getValue({{value}});" >
+<form action="/student_meeting/" method ="POST" >
+    {% csrf_token %}
+    <input type = "hidden",name = "number", value="{{value}}">
+    <button type="submit">
+
     <script type="text/javascript">
     document.write((tomorrow.getDate()+1)+"/"+(tomorrow.getMonth()+1)+"/"+tomorrow.getFullYear()+"  -  ");
     tomorrow.setDate(tomorrow.getDate() + 7);
@@ -37,7 +41,19 @@ a {
     document.write(tomorrow.getDate()+"/"+(tomorrow.getMonth()+1)+"/"+tomorrow.getFullYear());
       </script>
 
-</a>
+
+    </button>
+</form>
+<!--<a href="{% url 'student_view' %}" onclick="getValue({{value}});" >-->
+
+    <!--<script type="text/javascript">-->
+    <!--document.write((tomorrow.getDate()+1)+"/"+(tomorrow.getMonth()+1)+"/"+tomorrow.getFullYear()+"  -  ");-->
+    <!--tomorrow.setDate(tomorrow.getDate() + 7);-->
+    <!--var dt = new Date(tomorrow);-->
+    <!--document.write(tomorrow.getDate()+"/"+(tomorrow.getMonth()+1)+"/"+tomorrow.getFullYear());-->
+      <!--</script>-->
+
+<!--</a>-->
 
 </br>
 <hr>
