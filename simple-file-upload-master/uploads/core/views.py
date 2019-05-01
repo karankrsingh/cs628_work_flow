@@ -5,8 +5,8 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from .models import Report, Teacher, Student, TeacherMeet
 import django.db
-
-from .forms import DocumentForm
+from itertools import chain
+from .forms import DocumentForm,MeetingForm
 
 def home(request):
     return HttpResponse("<h1>hello!!!!!!!!!!</h1>")
@@ -38,6 +38,29 @@ def model_form_upload(request):
     return render(request, 'core/model_form_upload.html', {
         'form': form
     })
+
+def schedule_meeting(request):
+    #input week and roll number
+
+    if request.method == 'POST':
+        form = MeetingForm(request.POST)
+        weekid=7
+        rollno=10001
+        row=Student.objects.get(student_roll=rollno)
+        if form.is_valid():
+            newobject = TeacherMeet()
+            newobject.week_id=weekid
+            newobject.meet_student_roll=row
+            newobject.schedule_date = form.cleaned_data['schedule_date']
+            newobject.future_work = form.cleaned_data['future_work']
+            newobject.save()
+            return redirect('/teacher_student_view')
+    else:
+        form = MeetingForm()
+    return render(request, 'core/schedule_meeting.html', {
+        'form': form
+    })
+
 
 
 def for_teacher(request):
@@ -76,21 +99,50 @@ def for_student_meeting(request):
 
 def teacher_student_view(request):
     # input roll no of student
-    details_of_meet = TeacherMeet.objects.filter(meet_student_roll=10001)
+    details_of_meet = TeacherMeet.objects.filter(meet_student_roll=10003)
     # print(details_of_meet[1].week_id)
-    # newquery=Report.objects.none()
+    counter_past=0
+    counter_present=0
+    counter_zero=0;
+    reportquery=Report.objects.none()
+    teacherquery = TeacherMeet.objects.none()
+
+    marks_report_list=[]
+    marks_teacher_list=[]
+
+    no_marks_report_list=[]
+    no_marks_teacher_list=[]
+
+    only_scheduled_list=[]
+
     # print(newquery)
+    # print(details_of_meet)
     for obj in details_of_meet:
-        # print(obj.id)
+        # counter_past=counter_past+1
         temp=Report.objects.filter(report_meet_id=obj.id)
         if(temp):
-            # print(temp)
+            # counter_present=counter_present+1
             for x in temp:
                 if(x.marks):
-                    print(x.marks)
-        # newquery=newquery|Report.objects.get(report_meet_id=temp)
+                    marks_teacher_list.append(obj)
+                    marks_report_list.append(x)
+                else:
+                    no_marks_teacher_list.append(obj)
+                    no_marks_report_list.append(x)
+        else:
+            only_scheduled_list.append(obj)
 
-    return render(request,'core/teacher_student_view.html',{'details_of_meet':details_of_meet})
+    marks_report_query_add=list(chain(reportquery,marks_report_list))
+    marks_teacher_query_add=list(chain(teacherquery,marks_teacher_list))
+
+    no_marks_report_query_add=list(chain(reportquery,no_marks_report_list))
+    no_marks_teacher_query_add=list(chain(teacherquery,no_marks_teacher_list))
+
+    only_scheduled_query=list(chain(teacherquery,only_scheduled_list))
+    marks_given_all=zip(marks_teacher_query_add,marks_report_query_add)
+    no_marks_given_all=zip(no_marks_teacher_query_add,no_marks_report_query_add)
+
+    return render(request,'core/teacher_student_view.html',{'a':marks_given_all,'b':no_marks_given_all,'only_scheduled':only_scheduled_query})
     # details_of_report=Report.objects.filter()
 
 

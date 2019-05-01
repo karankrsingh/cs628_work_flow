@@ -2,8 +2,43 @@
 
 {% block content %}
 <h1><font color = "red">Student's Reports details</font></h1>
-<font color="green"><p><h2>List of meetings: </h2></p></font>
+<font color="green"><p><h2>Past meeting details: </h2></p></font>
+{% if a %}
+<table>
+    <tr>
+        <th>Week No.</th>
+        <th>Scheduled Meeting</th>
+        <th>Work Expected</th>
+        <th>Work Done</th>
+        <th>Report link</th>
+        <th>submitted at</th>
+        <th>Teachers remarks</th>
+        <th>Marks</th>
 
+    </tr>
+
+    {% for obj,x in a %}
+    <tr>
+        <td>{{obj.week_id}}</td>
+        <td>{{obj.schedule_date}}</td>
+        <td>{{obj.future_work}}</td>
+        <td>{{x.description }}</td>
+        <td><a href="{{ obj.document.url }}">{{ x.document.name }}</a></td>
+        <td>{{ x.uploaded_at }}</td>
+        <td>{{ x.teacher_comment }}</td>
+        <td>{{ x.marks }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h3>No past meeting history</h3>
+{% endif %}
+
+
+
+
+<font color="green"><p><h2>Next scheduled meeting: </h2></p></font>
+{% if only_scheduled %}
 <table>
     <tr>
         <th>Week No.</th>
@@ -11,13 +46,60 @@
         <th>Work Expected</th>
     </tr>
 
-    {% for obj in details_of_meet %}
-
+    {% for obj in only_scheduled %}
     <tr>
-        <td>{{obj.week_id }}</td>
+        <td>{{obj.week_id}}</td>
         <td>{{obj.schedule_date}}</td>
         <td>{{obj.future_work}}</td>
     </tr>
     {% endfor %}
 </table>
+{% else %}
+<h3>No further meeting scheduled</h3>
+{% endif %}
+
+
+
+<font color="green"><p><h2>Pending reports to evaluate: </h2></p></font>
+{% if b %}
+<table>
+    <tr>
+        <th>Week No.</th>
+        <th>Scheduled Meeting</th>
+        <th>Work Expected</th>
+        <th>Work Done</th>
+        <th>Report link</th>
+        <th>submitted at</th>
+        <th>Teachers remarks</th>
+        <th>Marks</th>
+
+    </tr>
+
+    {% for obj,x in b %}
+    <tr>
+        <td>{{obj.week_id}}</td>
+        <td>{{obj.schedule_date}}</td>
+        <td>{{obj.future_work}}</td>
+        <td>{{x.description }}</td>
+        <td><a href="{{ obj.document.url }}">{{ x.document.name }}</a></td>
+        <td>{{ x.uploaded_at }}</td>
+        <td>{{ x.teacher_comment }}</td>
+        <td>{{ x.marks }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h3>No Pending reports</h3>
+{% endif %}
+
+
+
+<font color="green"><p><h2>Schedule next meeting: </h2></p></font>
+<a href="/schedule_meeting"> Click here</a> to schedule a meeting
+
+
+<p>
+<h2><font color="green">Weekly Progress:</font></h2></p>
+<a href="/graph"> Click here</a> to see the graphical progress
+
 {% endblock %}
