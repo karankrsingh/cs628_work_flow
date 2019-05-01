@@ -8,11 +8,19 @@
 var tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() -1);
 function getValue(a) {
-<!--  alert("Clicked is "+a);-->
+  <!--alert("Clicked is "+a);-->
   localStorage.setItem("Value", a);
 }
 
-
+$('#weekForm').submit(function () {
+    $(this).append($.map(params, function (param) {
+        return   $('<input>', {
+            type: 'hidden',
+            name: param.name,
+            value: param.value
+        })
+    }))
+});
 
 </script>
 
@@ -29,9 +37,9 @@ a {
 
 <!--    <a href="{% url 'home' %}">week-{{ value }}</a>-->
 <!--<a href="{% url 'student_view' %}" onclick="getValue({{value}});" >week-{{ value }} </a>-->
-<form action="/student_meeting/" method ="POST" >
+<form id='weekForm', action="/student_meeting/" method ="POST" >
     {% csrf_token %}
-    <input type = "hidden",name = "number", value="{{value}}">
+    <input type = "hidden", name = "week_number", value={{value}}>
     <button type="submit">
 
     <script type="text/javascript">
@@ -39,19 +47,20 @@ a {
     tomorrow.setDate(tomorrow.getDate() + 7);
     var dt = new Date(tomorrow);
     document.write(tomorrow.getDate()+"/"+(tomorrow.getMonth()+1)+"/"+tomorrow.getFullYear());
+
+
       </script>
 
 
     </button>
 </form>
-<!--<a href="{% url 'student_view' %}" onclick="getValue({{value}});" >-->
-
+<!--<a href="{% url 'for_student_meeting' %}" onclick="getValue({{value}});" >-->
     <!--<script type="text/javascript">-->
     <!--document.write((tomorrow.getDate()+1)+"/"+(tomorrow.getMonth()+1)+"/"+tomorrow.getFullYear()+"  -  ");-->
     <!--tomorrow.setDate(tomorrow.getDate() + 7);-->
     <!--var dt = new Date(tomorrow);-->
     <!--document.write(tomorrow.getDate()+"/"+(tomorrow.getMonth()+1)+"/"+tomorrow.getFullYear());-->
-      <!--</script>-->
+    <!--</script>-->
 
 <!--</a>-->
 

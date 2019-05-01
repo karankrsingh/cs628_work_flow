@@ -49,26 +49,30 @@ def for_teacher(request):
 def for_student_meeting(request):
     # take input roll_no and week number
     # weekid=request.GET['number']
-    print(request.GET.values())
-    prim = TeacherMeet.objects.get(week_id=5,meet_student_roll=10001)
-    # docrecord = get_object_or_404(Report, report_meet_id=prim.id)
-    docrecord = Report.objects.filter(report_meet_id=prim.id)
+    forcheck = TeacherMeet.objects.filter(week_id=request.POST.get('week_number'), meet_student_roll=10001)
+    if(forcheck):
+        prim = TeacherMeet.objects.get(week_id=request.POST.get('week_number'),meet_student_roll=10001)
+        # docrecord = get_object_or_404(Report, report_meet_id=prim.id)
+        docrecord = Report.objects.filter(report_meet_id=prim.id)
 
-    if(docrecord):
-        return render(request, 'core/for_previous_meeting.html', {'docrecord': docrecord,'record':prim})
-    else:
-        if request.method == 'POST':
-            form = DocumentForm(request.POST, request.FILES)
-            if form.is_valid():
-                newobject = Report()
-                newobject.report_meet_id=prim
-                newobject.description=form.cleaned_data['description']
-                newobject.document=form.cleaned_data['document']
-                newobject.save()
-                return redirect('for_student_meeting')
+        if(docrecord):
+            return render(request, 'core/for_previous_meeting.html', {'docrecord': docrecord,'record':prim})
         else:
-            form = DocumentForm()
-        return render(request, 'core/for_student_meeting.html', {'record': prim,'form':form })
+            if request.method == 'POST':
+                form = DocumentForm(request.POST, request.FILES)
+                if form.is_valid():
+                    newobject = Report()
+                    newobject.report_meet_id=prim
+                    newobject.description=form.cleaned_data['description']
+                    newobject.document=form.cleaned_data['document']
+                    newobject.save()
+                    return redirect('for_student_meeting')
+            else:
+                form = DocumentForm()
+            return render(request, 'core/for_student_meeting.html', {'record': prim,'form':form })
+
+    else:
+        return HttpResponse("Meeting not scheduled yet")
 
 def teacher_student_view(request):
     # input roll no of student
@@ -99,6 +103,7 @@ def week_wise_view(request):
 
 
 def student_view(request):
+
     return render(request, 'core/student_view.html')
 
 def student_graph_display(request):
