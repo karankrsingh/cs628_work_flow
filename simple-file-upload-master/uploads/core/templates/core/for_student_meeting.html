@@ -2,19 +2,22 @@
 
 {% block content %}
 
-<h2><font color = "red">Work Number: </font> {{prim.week_id}} </h2>
+<h2><font color = "red">Week Number: </font> {{record.week_id}} </h2>
 
-<h2><font color = "Blue">Meeting Scheduled: </font></h2>
-<p><h4> {{prim.schedule_date}} </h4></p>
+<h2><font color = "Blue">Meeting Scheduled: </font> {{record.schedule_date}} </h2>
 
-<h2><font color = "Green">Work expected: </font></h2>
-<p><h4> {{prim.future_work}} </h4></p>
+<h2><font color = "Green">Work Expected: </font>{{record.future_work}} </h2>
+<hr>
+<p>
+<h2><font color = "Red">Upload Work For This Week: </font></h2>
+</p>
 
 
-<!--<form method="post" enctype="multipart/form-data">-->
-    <!--{% csrf_token %}-->
-    <!--{{ form.as_p }}-->
-    <!--<button type="submit">Upload</button>-->
-  <!--</form>-->
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+  </form>
+
 
 {% endblock %}

@@ -46,8 +46,8 @@ class Report(models.Model):
     document = models.FileField(upload_to='documents/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=255, blank=True)
-    teacher_comment = models.CharField(max_length=255, blank=True)
-    marks = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(0)])
+    teacher_comment = models.CharField(max_length=255, blank=True,null=True)
+    marks = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(0)],null=True,blank=True)
 
     def __str__(self):
         return str(self.report_meet_id) + str(self.document.name)

@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
-
+from django.shortcuts import get_object_or_404
 from .models import Report, Teacher, Student, TeacherMeet
+import django.db
 
-
-# from uploads.core.forms import DocumentForm
+from .forms import DocumentForm
 
 def home(request):
     return HttpResponse("<h1>hello!!!!!!!!!!</h1>")
@@ -48,12 +48,26 @@ def for_teacher(request):
 
 def for_student_meeting(request):
     # take input roll_no and week number
-    prim = TeacherMeet.objects.get(week_id=1,meet_student_roll=10002)
-    docrecord = Report.objects.get(report_meet_id=prim.id)
+
+    prim = TeacherMeet.objects.get(week_id=7,meet_student_roll=10003)
+    # docrecord = get_object_or_404(Report, report_meet_id=prim.id)
+    docrecord = Report.objects.filter(report_meet_id=prim.id)
+
     if(docrecord):
         return render(request, 'core/for_previous_meeting.html', {'docrecord': docrecord,'record':prim})
     else:
-        return render(request, 'core/for_student_meeting.html', {'record': prim})
+        if request.method == 'POST':
+            form = DocumentForm(request.POST, request.FILES)
+            if form.is_valid():
+                newobject = Report()
+                newobject.report_meet_id=prim
+                newobject.description=form.cleaned_data['description']
+                newobject.document=form.cleaned_data['document']
+                newobject.save()
+                return redirect('for_student_meeting')
+        else:
+            form = DocumentForm()
+        return render(request, 'core/for_student_meeting.html', {'record': prim,'form':form })
 
 
 
@@ -66,4 +80,6 @@ def week_wise_view(request):
 
 def student_view(request):
     return render(request, 'core/student_view.html')
-#
+
+def student_graph_display(request):
+    return render(request, 'core/student_graph_display.html')

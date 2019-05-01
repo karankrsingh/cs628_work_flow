@@ -43,14 +43,16 @@
         <th>Marks</th>
     </tr>
     <tr>
-         <td>{{record.schedule_date}}</td>
+         {% for obj in docrecord %}
+        <td>{{record.schedule_date}}</td>
         <td>{{record.future_work}}</td>
-        <td>{{docrecord.description}} </td>
-        <td><a href="{{ docrecord.document.url }}">{{ docrecord.document.name }}</a></td>
-        <td>{{ docrecord.uploaded_at }}</td>
+        <td>{{obj.description}} </td>
+        <td><a href="{{ obj.document.url }}">{{ obj.document.name }}</a></td>
+        <td>{{ obj.uploaded_at }}</td>
 
-        <td>{{ docrecord.teacher_comment }}</td>
-        <td>{{ docrecord.marks }}</td>
+        <td>{{ obj.teacher_comment }}</td>
+        <td>{{ obj.marks }}</td>
+         {% endfor %}
     </tr>
 </table>
 
