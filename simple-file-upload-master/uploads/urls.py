@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^teacher/', views.for_teacher, name='for_teacher'),
     url(r'^student_meeting/', views.for_student_meeting, name='for_student_meeting'),
     url(r'^admin/', admin.site.urls),
-    url(r'^week/', views.week_wise_view),
+    url(r'^week/', views.week_wise_view,name='week_name'),
     url(r'^student_view/', views.student_view, name='student_view'),
     url(r'^teacher_student_view/(?P<std_some_id>[0-9]+)', views.teacher_student_view, name='teacher_student_view'),
     url(r'^graph/(?P<std_some_id>[0-9]+)', views.student_graph_display, name='graph_name'),

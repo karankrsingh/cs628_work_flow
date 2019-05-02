@@ -9,7 +9,8 @@ from itertools import chain
 from .forms import DocumentForm,MeetingForm
 
 def home(request):
-    return HttpResponse("<h1>hello!!!!!!!!!!</h1>")
+    return render(request, 'core/home.html')
+    # return HttpResponse("<h1>hello!!!!!!!!!!</h1>")
     # documents = Document.objects.all()
     # return render(request, 'core/home.html', {'documents': documents})
 
