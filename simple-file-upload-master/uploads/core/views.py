@@ -46,9 +46,12 @@ def schedule_meeting(request,std_some_id):
         form = MeetingForm(request.POST)
         weekid = 1
         details_of_meet = TeacherMeet.objects.filter(meet_student_roll=int(std_some_id))
+        print(details_of_meet)
         if(details_of_meet):
             for obj in details_of_meet:
                 weekid=max(weekid,obj.week_id)
+
+        weekid=weekid+1
         rollno=int(std_some_id)
         row=Student.objects.get(student_roll=rollno)
         if form.is_valid():
@@ -75,13 +78,16 @@ def for_teacher(request):
     students = Student.objects.filter(std_teacher_id=1)
     return render(request, 'core/for_teacher.html', {'students': students})
 
-
 def for_student_meeting(request):
     # take input roll_no and week number
     # weekid=request.GET['number']
+    # if(request.method != 'POST'):
     forcheck = TeacherMeet.objects.filter(week_id=request.POST.get('week_number'), meet_student_roll=10001)
+    print(request.POST.get('week_number'))
+    print(request.POST.get('flag'))
     if(forcheck):
         prim = TeacherMeet.objects.get(week_id=request.POST.get('week_number'),meet_student_roll=10001)
+        print(prim)
         # docrecord = get_object_or_404(Report, report_meet_id=prim.id)
         docrecord = Report.objects.filter(report_meet_id=prim.id)
 
@@ -89,20 +95,59 @@ def for_student_meeting(request):
             return render(request, 'core/for_previous_meeting.html', {'docrecord': docrecord,'record':prim})
         else:
             if request.method == 'POST':
+                print("11 post")
                 form = DocumentForm(request.POST, request.FILES)
                 if form.is_valid():
+                    print("112 post")
                     newobject = Report()
                     newobject.report_meet_id=prim
                     newobject.description=form.cleaned_data['description']
                     newobject.document=form.cleaned_data['document']
                     newobject.save()
-                    return redirect('for_student_meeting')
+                    return redirect('week/')
             else:
                 form = DocumentForm()
-            return render(request, 'core/for_student_meeting.html', {'record': prim,'form':form })
+            print("1111 post")
+            return render(request, 'core/for_student_meeting.html', {'record': prim,'form':form, 'value': request.POST.get('week_number')})
 
+    elif request.POST.get('flag'):
+        return redirect('week/')
     else:
+        print("else")
         return HttpResponse("Meeting not scheduled yet")
+    # else:
+    #     print("2 post")
+    #     forcheck = TeacherMeet.objects.filter(week_id=request.POST.get('week_number'), meet_student_roll=10001)
+    #     print(request.POST.get('week_number'))
+    #
+    #     if (forcheck):
+    #         prim = TeacherMeet.objects.get(week_id=request.POST.get('week_number'), meet_student_roll=10001)
+    #         print(prim)
+    #         # docrecord = get_object_or_404(Report, report_meet_id=prim.id)
+    #         docrecord = Report.objects.filter(report_meet_id=prim.id)
+    #
+    #         if (docrecord):
+    #             return render(request, 'core/for_previous_meeting.html', {'docrecord': docrecord, 'record': prim})
+    #         else:
+    #             if request.method == 'POST':
+    #                 print("22 post")
+    #                 form = DocumentForm(request.POST, request.FILES)
+    #                 if form.is_valid():
+    #                     newobject = Report()
+    #                     newobject.report_meet_id = prim
+    #                     newobject.description = form.cleaned_data['description']
+    #                     newobject.document = form.cleaned_data['document']
+    #                     newobject.save()
+    #                     return redirect('week/')
+    #             else:
+    #                 form = DocumentForm()
+    #             print( "222 post")
+    #             return render(request, 'core/for_student_meeting.html', {'record': prim, 'form': form})
+    #
+    #     else:
+    #         print("something else")
+    #         return HttpResponse("Meeting not scheduled yet")
+
 
 def teacher_student_view(request,std_some_id):
     print(type(int(std_some_id)))

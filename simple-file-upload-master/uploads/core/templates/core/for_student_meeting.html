@@ -13,9 +13,25 @@
 </p>
 
 
-<form method="post" enctype="multipart/form-data">
+<script>
+
+$('#auxForm').submit(function () {
+    $(this).append($.map(params, function (param) {
+        return   $('<input>', {
+            type: 'hidden',
+            name: param.name,
+            value: param.value
+        })
+    }))
+});
+
+</script>
+
+<form method="post" enctype="multipart/form-data" id="#auxForm">
     {% csrf_token %}
     {{ form.as_p }}
+    <input type = "hidden", name = "week_number", value={{value}}>
+    <input type = "hidden", name = "flag", value=True>
     <button type="submit">Upload</button>
   </form>
 
