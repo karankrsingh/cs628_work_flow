@@ -39,13 +39,17 @@ def model_form_upload(request):
         'form': form
     })
 
-def schedule_meeting(request):
+def schedule_meeting(request,std_some_id):
     #input week and roll number
 
     if request.method == 'POST':
         form = MeetingForm(request.POST)
-        weekid=7
-        rollno=10001
+        weekid = 1
+        details_of_meet = TeacherMeet.objects.filter(meet_student_roll=int(std_some_id))
+        if(details_of_meet):
+            for obj in details_of_meet:
+                weekid=max(weekid,obj.week_id)
+        rollno=int(std_some_id)
         row=Student.objects.get(student_roll=rollno)
         if form.is_valid():
             newobject = TeacherMeet()
@@ -54,7 +58,10 @@ def schedule_meeting(request):
             newobject.schedule_date = form.cleaned_data['schedule_date']
             newobject.future_work = form.cleaned_data['future_work']
             newobject.save()
-            return redirect('/teacher_student_view')
+            name="/teacher_student_view/"+str(std_some_id)
+            print(name)
+
+            return redirect(name)
     else:
         form = MeetingForm()
     return render(request, 'core/schedule_meeting.html', {
