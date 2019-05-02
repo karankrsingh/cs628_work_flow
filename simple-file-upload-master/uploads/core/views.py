@@ -143,7 +143,7 @@ def teacher_student_view(request,std_some_id):
     marks_given_all=zip(marks_teacher_query_add,marks_report_query_add)
     no_marks_given_all=zip(no_marks_teacher_query_add,no_marks_report_query_add)
 
-    return render(request,'core/teacher_student_view.html',{'a':marks_given_all,'b':no_marks_given_all,'only_scheduled':only_scheduled_query})
+    return render(request,'core/teacher_student_view.html',{'a':marks_given_all,'b':no_marks_given_all,'only_scheduled':only_scheduled_query,'user_prof_id':int(std_some_id)})
     # details_of_report=Report.objects.filter()
 
 
@@ -159,9 +159,9 @@ def student_view(request):
 
     return render(request, 'core/student_view.html')
 
-def student_graph_display(request):
+def student_graph_display(request,std_some_id):
 
-    details_of_meet = TeacherMeet.objects.filter(meet_student_roll=10001)
+    details_of_meet = TeacherMeet.objects.filter(meet_student_roll=int(std_some_id))
     marks=[]
     week=[]
     for obj in details_of_meet:
