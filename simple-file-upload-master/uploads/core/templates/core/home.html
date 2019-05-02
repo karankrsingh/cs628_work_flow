@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+  #x{
+    text-decoration : none;
+    color : green;
+  }
+</style>
+
   <ul>
     <li>
-      <a href="{% url 'for_teacher' %}">Teacher's Profile</a>
+      <a href="{% url 'for_teacher' %}" id="x">Teacher's Profile</a>
     </li>
     <hr>
     <li>
-      <a href="{% url 'week_name' %}">Student's Profile</a>
-
+      <a href="{% url 'week_name' %}"id="x">Student's Profile</a>
     </li>
+    <hr>
   </ul>
 
 
