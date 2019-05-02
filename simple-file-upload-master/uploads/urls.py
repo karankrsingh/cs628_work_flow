@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^week/', views.week_wise_view),
     url(r'^student_view/', views.student_view, name='student_view'),
-    url(r'^teacher_student_view/', views.teacher_student_view, name='teacher_student_view'),
+    url(r'^teacher_student_view/(?P<std_some_id>[0-9]+)', views.teacher_student_view, name='teacher_student_view'),
     url(r'^graph/', views.student_graph_display),
     url(r'^schedule_meeting$', views.schedule_meeting, name='schedule_meeting'),
 

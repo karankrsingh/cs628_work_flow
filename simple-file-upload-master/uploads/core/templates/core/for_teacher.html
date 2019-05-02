@@ -14,8 +14,8 @@
     {% for obj in students %}
 
     <tr>
-        <td><a href="{% url 'teacher_student_view' %}">{{obj.student_roll }}</a></td>
-        <td><a href="{% url 'teacher_student_view' %}">{{obj.student_name }}</a></td>
+        <td><a href="{% url 'teacher_student_view' obj.student_roll %}">{{obj.student_roll }}</a></td>
+        <td><a href="{% url 'teacher_student_view' obj.student_roll %}">{{obj.student_name }}</a></td>
         <td>{{obj.topic}}</td>
     </tr>
     {% endfor %}

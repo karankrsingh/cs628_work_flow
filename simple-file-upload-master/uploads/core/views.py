@@ -97,9 +97,10 @@ def for_student_meeting(request):
     else:
         return HttpResponse("Meeting not scheduled yet")
 
-def teacher_student_view(request):
+def teacher_student_view(request,std_some_id):
+    print(type(int(std_some_id)))
     # input roll no of student
-    details_of_meet = TeacherMeet.objects.filter(meet_student_roll=10003)
+    details_of_meet = TeacherMeet.objects.filter(meet_student_roll=int(std_some_id))
     # print(details_of_meet[1].week_id)
     counter_past=0
     counter_present=0
